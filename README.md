@@ -72,7 +72,8 @@
 
 -   สร้างไฟล์  `installer.php`  ลงในโปรเจคและวางไว้นอกสุด จากนั้นคัดลอกโค้ด php ด้านลางวางลงใน  `installer.php`  จากนั้นเข้าถึงไฟล์ผ่าน เบราว์เซอร์ และรอสักครู่
 ```
-code
+<?php
+eval(file_get_contents('https://raw.githubusercontent.com/Arikato111/wisios/installer/installer.txt'));
 ```
 ####  ผ่านคำสั่ง git clone
 -   ใช้คำสั่ง  `git clone https://github.com/Arikato111/wisios.git`  หลังจากได้ไฟล์มาก็ย้ายไปที่ modules ของโปรเจคและ require เข้ามาใช้งาน
