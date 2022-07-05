@@ -25,8 +25,8 @@
 ---
 ### การ require เข้ามาใช้งาน
 - สำหรับการ `require` นั้น จะใช้คำสั่ง `require` ตามปกติ เพียงแต่ว่าต้องมีการสร้างตัวแปรมารับค่า เช่นโค้ดด้านล่าง
-	```
-	$wisios  =  require('modules/wisios/wisios.php');
+	```php
+	$wisios  =  require('modules/wisios/main.m.php');
 	```
 - และตัวแปรจะมีค่าเป็น object ซึ่งสามารถเรียกใช้ method ต่างๆ ได้
 ---
@@ -38,30 +38,30 @@
 	- PUT
 	- DELETE
  - หลังจากทำการ `require` เข้ามาใช้งาน ตัวแปรจะเป็น `type` object ซึ่งสามารถเรียกใช้ function สำหรับส่งคำขอ api ตามประเภท Method ต่างๆ ตังนี้
- ```
+ ```php
   $value = $wisios->get($url);
  ```
  - $value คือตัวแปรที่มารับค่าที่ api ส่งกลับมา
  - `get` คือ การส่ง Method เป็นประเภท GET ซึ่งหากต้องการเปลี่ยนเป็นประเภทอื่นๆ ก็สามารถเปลี่ยน get เป็นประเภทนั้นๆ ได้ โดยเขียนเป็นตัวเล็กทั้งหมด เช่น
-	```
+	```php
 	 $value = $wisios->post($url);
 	```
  - `$url` คือ url ของ api ที่ต้องการส่ง request ไป
 
 - หากต้องการส่ง ข้อมูล ก็สามารถใส่ข้อมูลลงถัดจาก `$url` ดังนี้
- ```
+ ```php
   $value = $wisios->get($url, $data);
  ```
 ---
 
 ### การตั้งค่า base url
 - โดยปกติแล้วต้องใส่ url แบบเต็มๆ เข้าไป เช่น `https://api.domain.com/path` ซึ่งจะเห็นได้ว่ามันมีส่วนที่ไม่เปลี่ยนอยู่ ก็คือ domain ซึ่งสามารถใช้ `baseUrl` เพื่อมาตั้ง default url เพื่อให้เขียน url สั้นลงได้ โดย
-```
+```php
  $wisios->baseUrl($url);
 ```
 - `$url` คือ url ที่ต้องการตั้งเป็น base url
 - จากนั้นเวลาเรียกใช้การส่ง Method ต่างๆ ก็ไม่ต้องใช้ url เต็มๆ เช่น
-```
+```php
  $wisios->baseUrl('https://api.domain.com');
  $result = $wisios->get('/path');
 ```
@@ -71,7 +71,7 @@
 #### ผ่านคำสั่ง php
 
 -   สร้างไฟล์  `installer.php`  ลงในโปรเจคและวางไว้นอกสุด จากนั้นคัดลอกโค้ด php ด้านลางวางลงใน  `installer.php`  จากนั้นเข้าถึงไฟล์ผ่าน เบราว์เซอร์ และรอสักครู่
-```
+```php
 <?php
 eval(file_get_contents('https://raw.githubusercontent.com/Arikato111/wisios/installer/installer.txt'));
 ```
