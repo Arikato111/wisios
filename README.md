@@ -1,5 +1,5 @@
 ## WISIOS
-### Module package for PHP_SPA
+### Library for PHP
 --- 
 ### menu
 
