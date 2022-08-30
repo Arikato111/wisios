@@ -28,13 +28,42 @@ return new class
         if ($header) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         }
-        $value = curl_exec($ch);
+        /************** */
+        $headers = (object)[];
+        curl_setopt(
+            $ch,
+            CURLOPT_HEADERFUNCTION,
+            function ($curl, $heading) use (&$headers) {
+                $len = strlen($heading);
+                $heading = explode(':', $heading, 2);
+                if (count($heading) < 2) // ignore invalid headers
+                    return $len;
+
+                $headers->{trim($heading[0])} = trim($heading[1]);
+
+                return $len;
+            }
+        );
+        /************** */
+        $response = curl_exec($ch);
+        if(isset($headers->{'Content-Type'})) {
+            if($headers->{'Content-Type'} == 'application/json;charset=UTF-8') {
+                $response = json_decode($response);
+            }
+        }
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        /************** */
         if ($e = curl_error($ch)) {
             curl_close($ch);
             return $e;
         } else {
             curl_close($ch);
-            return $value;
+
+            return (object) [
+                "status" => $httpcode,
+                "headers" => $headers,
+                "data" => $response
+            ];
         }
     }
 
