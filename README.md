@@ -74,12 +74,12 @@
 ### ส่งข้อมูลให้ api
 #### การส่งคำขอ api นั้นสามารถส่งข้อมูลแบบเต็มๆ ได้ดังนี้
 ```php
-$res = $wisiosj->get($url, $data, $header);
+$res = $wisios->get($url, $data, $header);
 ```
 หรือระบุให้ชัดเจนขึ้น
 
 ```php
-$res = $wisiosj->get(url: $url,data: $data,header: $header);
+$res = $wisios->get(url: $url,data: $data,header: $header);
 ```
 1 `$data` เป็นข้อมูลที่ส่งผ่าน body สามารถใส่เป็น object หรือ string ก็ได้
 
