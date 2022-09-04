@@ -46,11 +46,16 @@ return new class
         );
         /************** */
         $response = curl_exec($ch);
-        if(isset($headers->{'Content-Type'})) {
-            if($headers->{'Content-Type'} == 'application/json;charset=UTF-8') {
+        if (isset($headers->{'Content-Type'})) {
+            if (strpos($headers->{'Content-Type'}, 'json') !== false) {
+                $response = json_decode($response);
+            }
+        } elseif (isset($headers->{'content-type'})) {
+            if (strpos($headers->{'content-type'}, 'json') !== false) {
                 $response = json_decode($response);
             }
         }
+
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         /************** */
         if ($e = curl_error($ch)) {
