@@ -4,28 +4,28 @@
     * This source code is licensed under the MIT license found in the
     * LICENSE file in the root directory of this source tree.
 */
-return new class
+class wisios
 {
-    public $Url = '';
+    private static $Url = '';
 
-    public function baseUrl($baseUrl)
+    public static function baseUrl(string $baseUrl): void
     {
-        $this->Url = $baseUrl;
+        wisios::$Url = $baseUrl;
     }
-    public function Route($method, $url, $data = false, $header = false)
+    public static function Route(string $method,string $url,string | array | object $data = [],array $header = []): object
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->Url . $url);
+        curl_setopt($ch, CURLOPT_URL, wisios::$Url . $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-        if ($data) {
+        if (!empty($data)) {
             if (gettype($data) == 'array') {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
             } else {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
             }
         }
-        if ($header) {
+        if (!empty($header)) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         }
         /************** */
@@ -72,20 +72,20 @@ return new class
         }
     }
 
-    public function get($url, $data = false, $header = false)
+    public static function get(string $url,string | array | object $data = [],array $header = []): object
     {
-        return $this->Route('GET', $url, $data, $header);
+        return wisios::Route('GET', $url, $data, $header);
     }
-    public function post($url, $data = false, $header = false)
+    public static function post(string $url,string | array | object $data = [], array $header = []): object
     {
-        return $this->Route('POST', $url, $data, $header);
+        return wisios::Route('POST', $url, $data, $header);
     }
-    public function put($url, $data = false, $header = false)
+    public static function put(string $url,string | array | object $data = [], array $header = []): object
     {
-        return $this->Route('PUT', $url, $data, $header);
+        return wisios::Route('PUT', $url, $data, $header);
     }
-    public function delete($url, $data = false, $header = false)
+    public static function delete(string $url,string | array | object $data = [], array $header = []): object
     {
-        return $this->Route('DELETE', $url, $data, $header);
+        return wisios::Route('DELETE', $url, $data, $header);
     }
 };
